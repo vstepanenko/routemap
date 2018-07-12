@@ -7,10 +7,10 @@
     Route Name:
     <input type="text" [(ngModel)]="name" placeholder="name" required>
   </label>
-  <button type="submit" style="margin-left: 10px;" (click)="save()" [disabled]="!name || points.length < 2">
+  <button type="submit" (click)="save()" [disabled]="!name || points.length < 2">
     Save & Go to Routes
   </button>
-  <button type="button" style="margin-left: 10px;" (click)="cancel()">Cancel</button>
+  <button type="button" (click)="cancel()">Cancel</button>
 </div>
 <br/>
 <agm-map [latitude]="mapConfig.latitude" [longitude]="mapConfig.longitude" [zoom]="mapConfig.zoom"
