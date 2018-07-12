@@ -1,13 +1,11 @@
-import {firestore} from 'firebase';
-import GeoPoint = firestore.GeoPoint;
-import Timestamp = firestore.Timestamp;
+import * as firebase from 'firebase/app';
 
 export class RoutePoint {
-  geo: GeoPoint;
-  timestamp?: Timestamp;
+  geo: firebase.firestore.GeoPoint;
+  timestamp?: firebase.firestore.Timestamp;
 
   constructor(latitude: number, longitude: number, date?: Date) {
-    this.geo = new GeoPoint(latitude, longitude);
-    this.timestamp = date ? Timestamp.fromDate(date) : Timestamp.now();
+    this.geo = new firebase.firestore.GeoPoint(latitude, longitude);
+    this.timestamp = date ? firebase.firestore.Timestamp.fromDate(date) : firebase.firestore.Timestamp.now();
   }
 }

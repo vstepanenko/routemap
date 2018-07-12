@@ -2,9 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RouteService} from '../services/route.service';
 import {RoutePoint} from '../models/RoutePoint';
 import {Router} from '@angular/router';
-import {firestore} from 'firebase';
-import GeoPoint = firestore.GeoPoint;
-
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-new-route',
@@ -36,7 +34,7 @@ export class NewRouteComponent implements OnInit {
         name: this.name,
         points: this.points.map(x => {
           return {
-            geo: new GeoPoint(x.geo.latitude, x.geo.longitude),
+            geo: new firebase.firestore.GeoPoint(x.geo.latitude, x.geo.longitude),
             timestamp: x.timestamp
           }
         })

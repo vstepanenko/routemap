@@ -18,7 +18,7 @@
         <p><strong>{{route.name}}</strong></p>
         <p>Latitude: {{point.geo.latitude}}</p>
         <p>Longitude: {{point.geo.longitude}}</p>
-        <p>Timestamp: {{point.timestamp.toDate()}}</p>
+        <p>Timestamp: {{point.timestamp.toDate() | date: "medium"}}</p>
       </agm-info-window>
     </agm-marker>
   </ng-container>

@@ -34,6 +34,5 @@ export class RouteMapComponent implements OnInit {
 
   private updateRoutes(data: any[]) {
     this.routes = data.map(x => new Route(x.points, x.name, 0.4));
-    console.log(this.routes);
   }
 }
