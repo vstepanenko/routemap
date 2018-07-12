@@ -3,6 +3,7 @@ import {RouteService} from '../services/route.service';
 import {RoutePoint} from '../models/RoutePoint';
 import {Router} from '@angular/router';
 import * as firebase from 'firebase/app';
+import {Route} from '../models/Route';
 
 @Component({
   selector: 'app-new-route',
@@ -30,7 +31,7 @@ export class NewRouteComponent implements OnInit {
 
   save() {
     if (this.name && this.points.length > 1) {
-      const route = {
+      const route: Route = {
         name: this.name,
         points: this.points.map(x => {
           return {

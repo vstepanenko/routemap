@@ -7,7 +7,7 @@ import {Route} from '../models/Route';
   providedIn: 'root'
 })
 export class RouteService {
-  private routeCollection: AngularFirestoreCollection<any>;
+  private routeCollection: AngularFirestoreCollection<Route>;
 
   constructor(private afs: AngularFirestore) {
     this.routeCollection = afs.collection<Route>('routes');
@@ -17,7 +17,7 @@ export class RouteService {
     return this.routeCollection.valueChanges();
   }
 
-  addRoute(route: Object) {
+  addRoute(route: Route) {
     return this.routeCollection.add(route);
   }
 }
