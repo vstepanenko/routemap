@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
-import {combineLatest, Observable} from 'rxjs';
-import {mergeMap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {Route} from '../models/Route';
 
 @Injectable({
   providedIn: 'root'
@@ -10,22 +10,14 @@ export class RouteService {
   private routeCollection: AngularFirestoreCollection<any>;
 
   constructor(private afs: AngularFirestore) {
-    this.routeCollection = afs.collection('routes');
+    this.routeCollection = afs.collection<Route>('routes');
   }
 
-  getAll(): Observable<any> {
-    return this.routeCollection.snapshotChanges().pipe(
-      mergeMap(routes => {
-        const routeMap = routes.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
-        console.log(routeMap);
-        const items: Array<Observable<any>> = [];
-        routeMap.forEach(x => items.push(this.afs.collection('routes/' + x.id + '/points').valueChanges()));
-        return combineLatest(...items);
-      })
-    )
+  getAll(): Observable<Route[]> {
+    return this.routeCollection.valueChanges();
+  }
+
+  addRoute(route: Object) {
+    return this.routeCollection.add(route);
   }
 }

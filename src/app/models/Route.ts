@@ -2,12 +2,14 @@ import {RoutePoint} from './RoutePoint';
 
 export class Route {
   points: RoutePoint[];
-  id?: string;
-  name?: string;
+  name: string;
   opacity?: number;
 
-  constructor(points: RoutePoint[], opacity: number = 0.4) {
+  constructor(points: RoutePoint[], name: string, opacity?: number) {
     this.points = points;
-    this.opacity = opacity
+    this.name = name;
+    if (opacity) {
+      this.opacity = opacity
+    }
   }
 }

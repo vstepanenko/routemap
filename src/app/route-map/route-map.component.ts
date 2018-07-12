@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {RouteService} from '../services/route.service';
 import {Route} from '../models/Route';
-import {firestore} from 'firebase';
-import GeoPoint = firestore.GeoPoint;
 
 @Component({
   selector: 'route-map',
@@ -11,8 +9,9 @@ import GeoPoint = firestore.GeoPoint;
 })
 export class RouteMapComponent implements OnInit {
   mapConfig = {
-    latitude: 33.0,
-    longitude: 33.0
+    latitude: 38.0,
+    longitude: -90.0,
+    zoom: 5
   };
   routes: Route[] = [];
 
@@ -34,7 +33,7 @@ export class RouteMapComponent implements OnInit {
   }
 
   private updateRoutes(data: any[]) {
-    this.routes = data.map(x => new Route(x));
+    this.routes = data.map(x => new Route(x.points, x.name, 0.4));
     console.log(this.routes);
   }
 }

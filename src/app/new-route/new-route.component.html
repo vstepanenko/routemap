@@ -1,23 +1,25 @@
 <div class="center-text">
   <h2>Create New Route</h2>
+  <p>Provide route name and select at least two points clicking on the map</p>
 </div>
 <div>
   <label>
     Route Name:
-    <input type="text" [(ngModel)]="name" placeholder="name">
+    <input type="text" [(ngModel)]="name" placeholder="name" required>
   </label>
-  <button type="button" style="margin-left: 10px;" (click)="save()">Save & Go Back</button>
+  <button type="submit" style="margin-left: 10px;" (click)="save()" [disabled]="!name || points.length < 2">
+    Save & Go Back
+  </button>
+  <button type="button" style="margin-left: 10px;" (click)="cancel()">Cancel</button>
 </div>
 <br/>
-<agm-map [latitude]="mapConfig.latitude" [longitude]="mapConfig.longitude" (mapClick)="mapClick($event)">
+<agm-map [latitude]="mapConfig.latitude" [longitude]="mapConfig.longitude" [zoom]="mapConfig.zoom"
+         (mapClick)="mapClick($event)">
   <agm-polyline [clickable]="false">
     <agm-polyline-point *ngFor="let point of points" [latitude]="point.geo.latitude" [longitude]="point.geo.longitude">
     </agm-polyline-point>
   </agm-polyline>
   <agm-marker *ngFor="let point of points" animation="DROP" [openInfoWindow]="false"
               [latitude]="point.geo.latitude" [longitude]="point.geo.longitude">
-    <!--<agm-info-window #infoWindow>-->
-      <!--This is route info-->
-    <!--</agm-info-window>-->
   </agm-marker>
 </agm-map>
