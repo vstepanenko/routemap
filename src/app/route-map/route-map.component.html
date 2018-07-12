@@ -1,7 +1,22 @@
+<div class="center-text">
+  <h2>My Routes</h2>
+</div>
+<div>
+  <button type="button" [routerLink]="['./new']">Add New Route</button>
+</div>
+<br/>
 <agm-map [latitude]="mapConfig.latitude" [longitude]="mapConfig.longitude">
-  <agm-polyline *ngFor="let route of routes" [strokeOpacity]="route.opacity"
-                (lineMouseOver)="mouseOver(route)" (lineMouseOut)="mouseOut(route)">
+  <agm-polyline *ngFor="let route of routes" [strokeOpacity]="route.opacity" [clickable]="false">
     <agm-polyline-point *ngFor="let point of route.points" [latitude]="point.geo.latitude" [longitude]="point.geo.longitude">
     </agm-polyline-point>
   </agm-polyline>
+  <ng-container *ngFor="let route of routes">
+    <agm-marker *ngFor="let point of route.points" animation="DROP" [openInfoWindow]="false"
+                [latitude]="point.geo.latitude" [longitude]="point.geo.longitude"
+                (mouseOver)="mouseOver(route, infoWindow)" (mouseOut)="mouseOut(route, infoWindow)">
+      <agm-info-window #infoWindow>
+        This is route info
+      </agm-info-window>
+    </agm-marker>
+  </ng-container>
 </agm-map>

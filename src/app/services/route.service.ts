@@ -22,7 +22,7 @@ export class RouteService {
           return { id, ...data };
         });
         console.log(routeMap);
-        const items: Observable<any>[] = [];
+        const items: Array<Observable<any>> = [];
         routeMap.forEach(x => items.push(this.afs.collection('routes/' + x.id + '/points').valueChanges()));
         return combineLatest(...items);
       })

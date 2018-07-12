@@ -1,21 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {RouteService} from '../services/route.service';
+import {Route} from '../models/Route';
 import {firestore} from 'firebase';
 import GeoPoint = firestore.GeoPoint;
-
-class RoutePoint {
-  geo: GeoPoint;
-}
-
-class Route {
-  points: RoutePoint[];
-  opacity?: number;
-
-  constructor(points: RoutePoint[], opacity: number = 0.4) {
-    this.points = points;
-    this.opacity = opacity
-  }
-}
 
 @Component({
   selector: 'route-map',
@@ -23,7 +10,6 @@ class Route {
   styleUrls: ['./route-map.component.css']
 })
 export class RouteMapComponent implements OnInit {
-  show: boolean;
   mapConfig = {
     latitude: 33.0,
     longitude: 33.0
@@ -37,17 +23,18 @@ export class RouteMapComponent implements OnInit {
     this.routeService.getAll().subscribe(data => this.updateRoutes(data));
   }
 
-  mouseOver(route: Route) {
+  mouseOver(route: Route, infoWindow) {
     route.opacity = 1;
+    infoWindow.open();
   }
 
-  mouseOut(route: Route) {
+  mouseOut(route: Route, infoWindow) {
     route.opacity = 0.4;
+    infoWindow.close();
   }
 
   private updateRoutes(data: any[]) {
     this.routes = data.map(x => new Route(x));
-    this.show = true;
     console.log(this.routes);
   }
 }
