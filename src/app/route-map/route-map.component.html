@@ -1,3 +1,7 @@
 <agm-map [latitude]="mapConfig.latitude" [longitude]="mapConfig.longitude">
-
+  <agm-polyline *ngFor="let route of routes" [strokeOpacity]="route.opacity"
+                (lineMouseOver)="mouseOver(route)" (lineMouseOut)="mouseOut(route)">
+    <agm-polyline-point *ngFor="let point of route.points" [latitude]="point.geo.latitude" [longitude]="point.geo.longitude">
+    </agm-polyline-point>
+  </agm-polyline>
 </agm-map>
